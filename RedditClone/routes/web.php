@@ -16,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/sign-up', [Controllers\Auth\RegisterController::class, 'store'])->name('auth.register');
+Route::middleware(['guest'])->group(function () {
+    Route::post('/sign-up', [Controllers\Auth\RegisterController::class, 'store'])->name('auth.register');
+    Route::post('/sign-in', [Controllers\Auth\SessionController::class, 'store'])->name('auth.login');  
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/sign-out', [Controllers\Auth\SessionController::class, 'destroy'])->name('auth.logout');
+});
+    
