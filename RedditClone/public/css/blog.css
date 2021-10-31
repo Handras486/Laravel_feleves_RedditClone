@@ -2,7 +2,7 @@
 
 .blog-header {
     line-height: 1;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #b5b4fa;
   }
   
   .blog-header-logo {
@@ -32,6 +32,8 @@
     z-index: 2;
     height: 2.75rem;
     overflow-y: hidden;
+    border-bottom: 1px solid #b3afaf;
+    background-color: #DCDFE2;
   }
   
   .nav-scroller .nav {

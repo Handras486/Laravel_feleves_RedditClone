@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/sign-up', [Controllers\Auth\RegisterController::class, 'store'])->name('auth.register');
