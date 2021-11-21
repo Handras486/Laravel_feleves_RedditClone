@@ -11,7 +11,7 @@ class SessionController extends Controller
 {
     public function create()
     {
-
+        return view('home');
     }
 
     public function store(Request $request)

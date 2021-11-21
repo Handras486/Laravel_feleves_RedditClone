@@ -18,7 +18,10 @@ Route::get('/', [Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['guest'])->group(function () {
     Route::post('/sign-up', [Controllers\Auth\RegisterController::class, 'store'])->name('auth.register');
+    Route::get('/sign-in', [Controllers\Auth\SessionController::class, 'create']);  
+
     Route::post('/sign-in', [Controllers\Auth\SessionController::class, 'store'])->name('auth.login');  
+    Route::get('/sign-in', [Controllers\Auth\SessionController::class, 'create']);  
 });
 
 Route::middleware(['auth'])->group(function () {
