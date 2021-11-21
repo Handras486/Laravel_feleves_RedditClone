@@ -38,7 +38,7 @@
   <body>
     @include('layouts._header')
 
-    <main class="container py-5">
+    <main class="container-fluid py-5">
         @yield('content')
     </main>
 
