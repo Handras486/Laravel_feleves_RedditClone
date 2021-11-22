@@ -23,4 +23,10 @@ class Post extends Model
     public function author() {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')
+            ->orderBy('created_at', 'desc');
+    }
 }

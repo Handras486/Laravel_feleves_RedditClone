@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subreddit;
 use App\Models\Post;
+use App\Models\Comment;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use App\http\Requests\PostRequest;
@@ -89,5 +90,22 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function comment(Request $request, Post $post)
+    {
+        $request->validate([
+            'comment' => 'required',
+        ]);
+
+        $comment = new Comment;
+
+        $comment->user_id = Auth::user()->id;
+        $comment->message = $request->comment;
+
+        $post->comments()->save($comment);
+
+        return back()
+            ->with('success', __('Comment created successfully'));
     }
 }
