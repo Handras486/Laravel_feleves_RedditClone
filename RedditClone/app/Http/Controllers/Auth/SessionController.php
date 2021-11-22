@@ -17,14 +17,12 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'), $request->filled('remember_me'))) {
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-            ]);
+            return redirect()->back()->with('failure', __('Unuccessful login!'));;
         }
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/');
+        return redirect()->back()->with('success', __('Successful login!'));;
     }
 
     public function destroy(Request $request)
@@ -34,6 +32,6 @@ class SessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->intended('/');
+        return redirect()->back();
     }
 }
