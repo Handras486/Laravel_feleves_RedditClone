@@ -19,7 +19,7 @@
                 <a>to</a>
                 <a href="{{ route('subreddit.details', $post->subreddit) }}">{{ $post->subreddit->name }}</a>
             </div>
-            <a href="#">comments</a>
+            <a href="{{ route('post.details', $post) }}">{{ $post->comments()->count() }} comments</a>
         </div>
     </div>
 </div>

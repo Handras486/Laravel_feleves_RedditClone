@@ -10,6 +10,7 @@
     </div>
     <div class="col-2 d-flex justify-content-center align-items-baseline">
         @auth
+        @csrf
             <a class="btn btn-sm btn-secondary" href="{{ route('post.create') }}">
                 {{ __('Submit a new post') }}
             </a>
@@ -21,4 +22,3 @@
     </div>
 </div>
 @endsection
-
