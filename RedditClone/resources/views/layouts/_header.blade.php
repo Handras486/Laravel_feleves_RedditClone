@@ -3,21 +3,17 @@
         <header class="blog-header">
             <div class="row nav-scroller py-1 ">
                 <nav class="nav d-flex justify-content-start">
-                    <a class="p-2 link-secondary" href="#">Home</a>
-                    <a class="p-2 link-secondary" href="#">Random</a>
+                    <a class="p-2 link-secondary" href="{{ route('home') }}">Home</a>
+                    <a class="p-2 link-secondary" href="{{ route('subreddit.details', $subreddits->random()) }}">Random</a>
                     <div class="vr"></div>
-                    <a class="p-2 link-secondary" href="#">Design</a>
-                    <a class="p-2 link-secondary" href="#">Culture</a>
-                    <a class="p-2 link-secondary" href="#">Business</a>
-                    <a class="p-2 link-secondary" href="#">Politics</a>
-                    <a class="p-2 link-secondary" href="#">Opinion</a>
-                    <a class="p-2 link-secondary" href="#">Science</a>
-                    <a class="p-2 link-secondary" href="#">Health</a>
-                    <a class="p-2 link-secondary" href="#">Style</a>
-                    <a class="p-2 link-secondary" href="#">Travel</a>
+                    @foreach($subreddits as $subreddit)
+                    <a href="{{ route('subreddit.details', $subreddit) }}" class="p-2 link-secondary">
+                        {{ $subreddit->name }}
+                    </a>
+                    @endforeach
                 </nav>
             </div>
-            <div class="row flex-nowrap justify-content-between align-items-center" style="background-color:#E4EDF9">
+            <div class="row" style="background-color:#E4EDF9">
                 <div class="col-10 text-start">
                     <a class="blog-header-logo text-dark" href="{{ route('home') }}">
                         RedditClone
