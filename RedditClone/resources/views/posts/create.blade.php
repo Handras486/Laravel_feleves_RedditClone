@@ -1,5 +1,15 @@
 @extends('layouts.main')
 
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => { console.log(editor) })
+        .catch(error => { console.error(error) })
+</script>
+@endpush
+
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -24,7 +34,7 @@
             </div>
             <div class="mb-3">
                 <label for="content">{{ __('Content') }}</label>
-                <textarea name="content" class="form-control" rows="3"></textarea>
+                <textarea id="editor" name="content" class="form-control" rows="3"></textarea>
             </div>
             <div>
                 <button class="btn btn-primary btn-lg">{{ __('Submit') }}</button>
