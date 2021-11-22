@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function votes() {
+        return $this->hasMany(Vote::class);
+    }
+
     public function getAvatarAttribute() {
         $gravatarHash = md5($this->email);
         return "https://gravatar.com/avatar/{$gravatarHash}?d=robohash";

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Subreddit;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Vote;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use App\http\Requests\PostRequest;
@@ -94,6 +95,7 @@ class PostController extends Controller
 
     public function comment(Request $request, Post $post)
     {
+
         $request->validate([
             'comment' => 'required',
         ]);
@@ -105,7 +107,29 @@ class PostController extends Controller
 
         $post->comments()->save($comment);
 
-        return back()
-            ->with('success', __('Comment created successfully'));
+        return back();
+    }
+
+    public function vote(Request $request, Post $post)
+    {
+
+        $request->validate([
+            'type' => 'required',
+        ]);
+        
+        if (!$post->votes()->where('user_id', Auth::user()->id)->get()->isEmpty()) 
+        {
+            $post->votes()->where('user_id',Auth::user()->id)->delete();
+        }
+        else
+        {
+            $vote = new Vote;
+            $vote->user_id = Auth::user()->id;
+            $vote->type = $request->type;
+    
+            $post->votes()->save($vote);
+        }
+
+        return back();
     }
 }

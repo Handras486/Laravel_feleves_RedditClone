@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class Post extends Model
 {
@@ -28,5 +29,13 @@ class Post extends Model
     {
         return $this->morphMany(Comment::class, 'commentable')
             ->orderBy('created_at', 'desc');
+    }
+
+    public function votes() {
+        return  $this->morphMany(Vote::class, 'voteable');
+    }
+
+    public function score() {
+        return $this->votes()->where('type','True')->count() - $this->votes()->where('type','False')->count();
     }
 }
