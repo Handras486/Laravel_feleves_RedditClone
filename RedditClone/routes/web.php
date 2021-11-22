@@ -18,9 +18,11 @@ Route::get('/', [Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/post/{post}', [Controllers\PostController::class, 'show'])->name('post.details');
 
+Route::get('/r/{subreddit}', [Controllers\SubredditController::class, 'show'])->name('subreddit.details');
+
 Route::middleware(['guest'])->group(function () {
     Route::post('/sign-up', [Controllers\Auth\RegisterController::class, 'store'])->name('auth.register');
-    Route::get('/sign-in', [Controllers\Auth\SessionController::class, 'create']);  
+    Route::get('/sign-up', [Controllers\Auth\RegisterController::class, 'create']);  
 
     Route::post('/sign-in', [Controllers\Auth\SessionController::class, 'store'])->name('auth.login');  
     Route::get('/sign-in', [Controllers\Auth\SessionController::class, 'create']);  
