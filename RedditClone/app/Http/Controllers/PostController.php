@@ -14,15 +14,12 @@ use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function __construct()
     {
-        //
+        $this->authorizeResource(Post::class);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -160,5 +157,16 @@ class PostController extends Controller
         $post->save();
 
         return response()->json(['image' => $post->image ]);
+    }
+
+    protected function resourceAbilityMap()
+    {
+        $abilityMap = parent::resourceAbilityMap();
+
+        $abilityMap['uploadImage'] = 'update';
+        $abilityMap['vote'] = 'view';
+        $abilityMap['comment'] = 'view';
+
+        return $abilityMap;
     }
 }
