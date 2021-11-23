@@ -11,35 +11,49 @@
 @endpush
 
 @section('content')
-<div class="card">
-    <div class="card-header">
+<form action="{{ route('post.create') }}" method="POST">
+    @csrf
+    <div class="d-flex mb-5">
         <h4 class="display-4">{{ __('Submit') }}</h4>
+        <button class="ms-auto btn btn-primary btn-lg">{{ __('Submit') }}</button>
     </div>
-    <div class="card-body">
-        <form action="{{ route('post.create') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <x-form.input name="title" label="{{ __('Title') }}" />
+    <div class="row flex-md-row-reverse">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="subreddit_id">{{ __('Subreddit') }}</label>
+                        <select name="subreddit_id" class="form-control">
+                            <option>{{ __('Please choose a subreddit') }}</option>
+                            @foreach($subreddits as $subreddit)
+                                <option value="{{ $subreddit->id }}">
+                                    {{ $subreddit->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="subreddit_id">{{ __('Subreddit') }}</label>
-                <select name="subreddit_id" class="form-control">
-                    <option>{{ __('Please choose a subreddit') }}</option>
-                    @foreach($subreddits as $subreddit)
-                        <option value="{{ $subreddit->id }}">
-                            {{ $subreddit->name }}
-                        </option>
-                    @endforeach
-                </select>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="alert alert-info mb-0">
+                        {{ __('Save post to be able to add images') }}
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="content">{{ __('Content') }}</label>
-                <textarea id="editor" name="content" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <x-form.input name="title" label="{{ __('Title') }}" />
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="editor" name="content" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
             </div>
-            <div>
-                <button class="btn btn-primary btn-lg">{{ __('Submit') }}</button>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 @endsection

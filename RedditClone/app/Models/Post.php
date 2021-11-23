@@ -38,4 +38,15 @@ class Post extends Model
     public function score() {
         return $this->votes()->where('type','True')->count() - $this->votes()->where('type','False')->count();
     }
+
+    public function getHasImageAttribute() {
+        return $this->image !== null;
+    }
+
+    public function getCoverImageAttribute() {
+        if ($this->has_image) {
+            return "/uploads/{$this->image}";
+        }
+        return 'https://via.placeholder.com/1500';
+    }
 }

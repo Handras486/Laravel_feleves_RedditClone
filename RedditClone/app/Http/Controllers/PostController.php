@@ -10,6 +10,7 @@ use App\Models\Vote;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use App\http\Requests\PostRequest;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -37,7 +38,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\PostRequest  $request
+     * @param  \Illuminate\Http\PostRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request)
@@ -45,7 +46,9 @@ class PostController extends Controller
 
         $post = Auth::user()->posts()->create($request->all());
 
-        return redirect()->route('post.details', $post);
+        return redirect()
+            ->route('post.edit', $post)
+            ->with('success', __('Post created successfully'));
     }
 
     /**
@@ -67,19 +70,27 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $subreddits = Subreddit::orderBy('name')->get();
+        return view('posts.edit')->with(compact('post', 'subreddits'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PostRequest $request
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+
+        $post->update($request->except('_token'));
+
+        dd($post);
+        
+        return redirect()
+            ->route('home', $post)
+            ->with('success', __('Post saved successfully'));
     }
 
     /**
@@ -116,7 +127,7 @@ class PostController extends Controller
         $request->validate([
             'type' => 'required',
         ]);
-        
+
         if (!$post->votes()->where('user_id', Auth::user()->id)->get()->isEmpty()) 
         {
             $post->votes()->where('user_id',Auth::user()->id)->delete();
@@ -131,5 +142,23 @@ class PostController extends Controller
         }
 
         return back();
+    }
+
+    public function uploadImage(Request $request, Post $post)
+    {
+        if (!$request->ajax()) {
+            return abort(404);
+        }
+
+        $image = $request->file('image');
+        $fileID = uniqid();
+        $filename = "posts/{$fileID}.{$image->extension()}";
+
+        Image::make($image)->save(public_path("/uploads/{$filename}"));
+
+        $post->image = $filename;
+        $post->save();
+
+        return response()->json(['image' => $post->image ]);
     }
 }

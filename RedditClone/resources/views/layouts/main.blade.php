@@ -38,9 +38,10 @@
   </head>
   <body>
     @include('layouts._header')
-    @include('layouts.alerts._success')
-    @include('layouts.alerts._failure')
+    
     <main class="container-fluid py-2">
+      @include('layouts.alerts._success')
+      @include('layouts.alerts._failure')
         @yield('content')
     </main>
 

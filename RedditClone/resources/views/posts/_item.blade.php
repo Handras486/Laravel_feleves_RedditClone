@@ -16,7 +16,7 @@
             </form>
         </div>
         <div class="m-3">
-            <img class="" src="https://via.placeholder.com/100" width="100" height="100" alt="{{ $post->title }}">
+            <img class="" src="{{ $post->cover_image }}" width="100" height="100" alt="{{ $post->title }}">
         </div>
         <div class="d-flex flex-column m-3 small">
             <a href="{{ route('post.details', $post) }}"><h4>{{ $post->title }}</h4></a>
