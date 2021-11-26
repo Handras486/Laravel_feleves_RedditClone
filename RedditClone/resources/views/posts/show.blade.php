@@ -1,6 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
+<form action="{{ route('post.vote', $post) }}" method="POST">
+    @csrf
+    <input type="submit" name="type" value="True" />     
+</form>
+<a>{{ $post->score()}}</a>
+<form action="{{ route('post.vote', $post) }}" method="POST">
+    @csrf
+    <input type="submit" name="type" value="False" />     
+</form>
 <h1 class="display-1">{{ $post->title }}</h1>
 <p> {{ $post->score() }}|{{ $post->author->name }} | {{ $post->subreddit->name }} | {{ $post->updated_at->diffForHumans() }}</p>
 <div>
@@ -25,19 +34,7 @@
             </form>
         @endauth
         @foreach ($post->comments as $comment)
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <a href="#">
-                            <img class="rounded-circle" src="{{ $comment->user->avatar }}" width="20" alt="{{ $comment->user->name }}" />
-                            {{ $comment->user->name }}
-                        </a>
-                        |
-                        {{ $comment->created_at->diffForHumans() }}
-                    </div>
-                    {{ $comment->message }}
-                </div>
-            </div>
+            @include('comments._item')
         @endforeach
     </div>
 </div>

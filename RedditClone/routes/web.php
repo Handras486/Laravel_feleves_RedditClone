@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/post/{post}/comment', [Controllers\PostController::class, 'comment'])->name('post.comment');
 
+    Route::post('/comment/{comment}/reply', [Controllers\CommentController::class, 'reply'])->name('comment.reply');
+
     Route::get('/post/{post}/edit', [Controllers\PostController::class, 'edit'])->name('post.edit');
     Route::post('/post/{post}/edit', [Controllers\PostController::class, 'update']);
 
@@ -43,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/post/{post}/vote', [Controllers\PostController::class, 'vote'])->name('post.vote');
 
-    Route::post('/post/{post}/commentvote', [Controllers\PostController::class, 'commentvote'])->name('post.commentvote');
+    Route::post('/comment/{comment}/vote', [Controllers\PostController::class, 'vote'])->name('comment.vote');
 
 });
     
