@@ -14,4 +14,11 @@ class Subreddit extends Model
     public function posts() {
         return $this->hasMany(Post::class);
     }
+
+    public function getbgImageAttribute() {
+        if ( $this->attributes['bgimage'] != null) {
+            return "/uploads/{$this->bgimage}";
+        }
+        return 'https://via.placeholder.com/2000';
+    }
 }
