@@ -1,0 +1,15 @@
+.replyform{
+    &:not(.reply-form-visible) {
+        form {
+            display: none;
+        }
+    }
+    &.reply-form-visible {
+        .reply-toggle {
+            display: none;
+        }
+    }
+}
+
+
+
