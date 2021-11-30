@@ -18,10 +18,14 @@ class Comment extends Model
     }
 
     public function replies() {
-        return $this->morphMany(Comment::class, 'commentable')->orderBy('created_at', 'desc');; //TODO itt orderby score később
+        return $this->morphMany(Comment::class, 'commentable')->orderBy('created_at', 'desc'); //TODO itt orderby score később
     }
 
-    public function getIsReplyAttribute() {
-        return $this->commentable_type == 'comment';
+    public function votes() {
+        return  $this->morphMany(Vote::class, 'voteable');
+    }
+
+    public function getScoreAttribute() {
+        return $this->votes()->where('type','True')->count() - $this->votes()->where('type','False')->count();
     }
 }

@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Vote;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
     public function reply(Request $request, Comment $comment)
     {
-        if ($comment->is_reply) {
-            return back();
-        }
-
         $request->validate([
             'message' => 'required',
         ]);
@@ -31,5 +28,28 @@ class CommentController extends Controller
 
         return back()
             ->with('success', __('Reply created successfully'));
+    }
+
+    public function vote(Request $request, Comment $comment)
+    {
+
+        $request->validate([
+            'type' => 'required',
+        ]);
+
+        if (!$comment->votes()->where('user_id', Auth::user()->id)->get()->isEmpty()) 
+        {
+            $comment->votes()->where('user_id',Auth::user()->id)->delete();
+        }
+        else
+        {
+            $vote = new Vote;
+            $vote->user_id = Auth::user()->id;
+            $vote->type = $request->type;
+    
+            $comment->votes()->save($vote);
+        }
+
+        return back();
     }
 }

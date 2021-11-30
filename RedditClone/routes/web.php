@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/post/{post}/vote', [Controllers\PostController::class, 'vote'])->name('post.vote');
 
-    Route::post('/comment/{comment}/vote', [Controllers\PostController::class, 'vote'])->name('comment.vote');
+    Route::post('/comment/{comment}/vote', [Controllers\CommentController::class, 'vote'])->name('comment.vote');
 
 });
     
