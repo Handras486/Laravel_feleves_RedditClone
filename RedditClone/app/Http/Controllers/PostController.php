@@ -82,11 +82,8 @@ class PostController extends Controller
     {
 
         $post->update($request->except('_token'));
-
-        dd($post);
         
-        return redirect()
-            ->route('home', $post)
+        return redirect()->route('post.details', $post)
             ->with('success', __('Post saved successfully'));
     }
 

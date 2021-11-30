@@ -35,7 +35,7 @@ class Post extends Model
         return  $this->morphMany(Vote::class, 'voteable');
     }
 
-    public function score() {
+    public function getScoreAttribute() {
         return $this->votes()->where('type','True')->count() - $this->votes()->where('type','False')->count();
     }
 

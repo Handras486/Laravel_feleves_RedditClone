@@ -4,12 +4,11 @@
             <a>{{ $loop->index + 1 }}</a>
         </div>
         <div class="d-flex flex-column m-3 align-items-center">
-        <!--<img class="" src="https://via.placeholder.com/25" width="25" height="25" alt="{{ $post->score }}">-->
             <form action="{{ route('post.vote', $post) }}" method="POST">
                 @csrf
                 <input type="submit" name="type" value="True" />     
             </form>
-            <a>{{ $post->score()}}</a>
+            <a>{{ $post->score}}</a>
             <form action="{{ route('post.vote', $post) }}" method="POST">
                 @csrf
                 <input type="submit" name="type" value="False" />     
@@ -26,7 +25,7 @@
                 <a>to</a>
                 <a href="{{ route('subreddit.details', $post->subreddit) }}">{{ $post->subreddit->name }}</a>
             </div>
-            <a href="{{ route('post.details', $post) }}">{{ $post->comments()->count() }} comments</a>
+            <a href="{{ route('post.details', $post) }}">{{ $post->comments()->count()}} comments</a>
         </div>
     </div>
 </div>

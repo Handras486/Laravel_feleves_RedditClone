@@ -5,13 +5,13 @@
     @csrf
     <input type="submit" name="type" value="True" />     
 </form>
-<a>{{ $post->score()}}</a>
+<a>{{ $post->score}}</a>
 <form action="{{ route('post.vote', $post) }}" method="POST">
     @csrf
     <input type="submit" name="type" value="False" />     
 </form>
 <h1 class="display-1">{{ $post->title }}</h1>
-<p> {{ $post->score() }}|{{ $post->author->name }} | {{ $post->subreddit->name }} | {{ $post->updated_at->diffForHumans() }}</p>
+<p> {{ $post->score }}|{{ $post->author->name }} | {{ $post->subreddit->name }} | {{ $post->updated_at->diffForHumans() }}</p>
 <div>
     {!! $post->content !!}
 </div>
