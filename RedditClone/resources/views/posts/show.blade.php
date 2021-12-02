@@ -12,6 +12,13 @@
 </form>
 <h1 class="display-1">{{ $post->title }}</h1>
 <p> {{ $post->score }}|{{ $post->author->name }} | {{ $post->subreddit->name }} | {{ $post->updated_at->diffForHumans() }}</p>
+<a href="{{ route('post.edit', $post) }}">edit</a>
+<div class="">
+    <form action="{{ route('post.delete', $post) }}" method="POST">
+        @csrf
+        <input type="submit" value="delete"/>
+    </form>
+</div>
 <div>
     {!! $post->content !!}
 </div>

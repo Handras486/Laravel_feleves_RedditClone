@@ -95,7 +95,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect('/')->with('success', __('Post deleted successfully'));
     }
 
     public function comment(Request $request, Post $post)

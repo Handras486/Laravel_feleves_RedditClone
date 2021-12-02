@@ -25,7 +25,18 @@
                 <a>to</a>
                 <a href="{{ route('subreddit.details', $post->subreddit) }}">{{ $post->subreddit->name }}</a>
             </div>
-            <a href="{{ route('post.details', $post) }}">{{ $post->comments()->count()}} comments</a>
+            <div class="d-flex flex-row">
+                <div class="px-2">
+                    <a href="{{ route('post.details', $post) }}">{{ $post->comments()->count()}}+ comments</a>
+                    <a href="{{ route('post.edit', $post) }}">edit</a>
+                </div>
+                <div class="">
+                    <form action="{{ route('post.delete', $post) }}" method="POST">
+                        @csrf
+                        <input type="submit" value="delete"/>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

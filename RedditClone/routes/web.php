@@ -36,16 +36,23 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/post/{post}/comment', [Controllers\PostController::class, 'comment'])->name('post.comment');
 
-    Route::post('/comment/{comment}/reply', [Controllers\CommentController::class, 'reply'])->name('comment.reply');
-
     Route::get('/post/{post}/edit', [Controllers\PostController::class, 'edit'])->name('post.edit');
     Route::post('/post/{post}/edit', [Controllers\PostController::class, 'update']);
+
+    Route::post('/post/{post}/delete', [Controllers\PostController::class, 'destroy'])->name('post.delete');
 
     Route::post('/post/{post}/image', [Controllers\PostController::class, 'uploadImage'])->name('post.image');
 
     Route::post('/post/{post}/vote', [Controllers\PostController::class, 'vote'])->name('post.vote');
 
+
+    Route::post('/comment/{comment}/reply', [Controllers\CommentController::class, 'reply'])->name('comment.reply');
+
     Route::post('/comment/{comment}/vote', [Controllers\CommentController::class, 'vote'])->name('comment.vote');
+
+    Route::post('/comment/{comment}/delete', [Controllers\CommentController::class, 'destroy'])->name('comment.delete');
+
+    Route::post('/comment/{comment}/edit', [Controllers\CommentController::class, 'update'])->name('comment.edit');
 
 });
     

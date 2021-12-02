@@ -11,5 +11,26 @@
     }
 }
 
+.editform{
+    &:not(.edit-form-visible) {
+        form {
+            display: none;
+        }
+    }
+    &.edit-form-visible {
+        .edit-toggle {
+            display: none;
+        }
+    }
+}
+
+.user {
+    &.user-visible
+     {
+        .user-toggle {
+            display: none;
+        }
+    }
+}
 
 

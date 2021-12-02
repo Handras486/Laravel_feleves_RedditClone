@@ -30,6 +30,25 @@ class CommentController extends Controller
             ->with('success', __('Reply created successfully'));
     }
 
+    public function update(Request $request, Comment $comment)
+    {
+
+        $comment->message = $request->message;
+        $comment->save();
+        
+        return back()->with('success', __('Message updated successfully'));
+    }
+
+    public function Destroy(Comment $comment)
+    {
+        //$temp=Comment::all()->find($comment)->message ="asd";
+
+        $comment->message = '<message deleted>';
+        $comment->save();
+
+        return back()->with('success', __('Message deleted successfully'));
+    }
+
     public function vote(Request $request, Comment $comment)
     {
 
